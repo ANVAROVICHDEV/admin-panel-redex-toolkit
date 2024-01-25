@@ -31,7 +31,7 @@ const Register = () => {
 		if(loggedIn) {
 			navigate('/')
 		}
-	} , [])
+	} , [loggedIn])
 	return (
 		<div className="text-center w-25 m-auto">
 			<form>
