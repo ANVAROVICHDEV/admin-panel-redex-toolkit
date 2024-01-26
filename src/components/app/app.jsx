@@ -5,6 +5,8 @@ import AuthService from "../../service/auth";
 import { signuserSuccess } from "../../slice/auth";
 import { useEffect } from "react";
 import { getItem } from "../../helpers/persistance-storage";
+import ArticleService from "../../service/article";
+import { articleStart, articleSuccess } from "../../slice/article";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -18,12 +20,22 @@ const App = () => {
 		}
 	};
 
+	const getArticles = async () => {
+		dispatch(articleStart())
+		try {
+			const response = await ArticleService.getArticle();
+			dispatch(articleSuccess(response.articles))
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		if(getItem('token')){
-			getUser()
+		if (getItem("token")) {
+			getUser();
 		}
-	}, [])
+		getArticles()
+	}, []);
 
 	return (
 		<div>

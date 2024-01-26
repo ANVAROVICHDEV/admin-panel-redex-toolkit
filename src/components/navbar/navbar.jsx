@@ -14,7 +14,7 @@ const Navbar = () => {
 		navigate('/login')
 	}
 	return (
-		<div className="d-flex flex-column flex-md-row align-items-center p-3 mb-4 border-bottom">
+		<div className="container d-flex flex-column flex-md-row align-items-center p-3 mb-4 border-bottom">
 			<Link
 				to={"/"}
 				className="d-flex align-items-center link-body-emphasis text-decoration-none"
