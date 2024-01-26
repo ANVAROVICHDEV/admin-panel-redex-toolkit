@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Login, Main, Navbar, PageNotFound, Register } from "..";
+import { Login, Main, Navbar, PageNotFound, Register, ArticleDetail } from "..";
 import { useDispatch } from "react-redux";
 import AuthService from "../../service/auth";
 import { signuserSuccess } from "../../slice/auth";
@@ -21,20 +21,22 @@ const App = () => {
 	};
 
 	const getArticles = async () => {
-		dispatch(articleStart())
+		dispatch(articleStart());
 		try {
 			const response = await ArticleService.getArticle();
-			dispatch(articleSuccess(response.articles))
+			dispatch(articleSuccess(response.articles));
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	
+
 	useEffect(() => {
 		if (getItem("token")) {
 			getUser();
 		}
-		getArticles()
+		getArticles();
 	}, []);
 
 	return (
@@ -44,6 +46,7 @@ const App = () => {
 				<Route path="/" element={<Main />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/article/:slug" element={<ArticleDetail />} />
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>
 		</div>
