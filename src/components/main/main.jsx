@@ -3,7 +3,7 @@ import { Loader } from "../../ui";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const { article, isLoading } = useSelector((state) => state.article);
 
 	return (
