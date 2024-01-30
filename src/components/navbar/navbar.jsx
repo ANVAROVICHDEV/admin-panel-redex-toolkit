@@ -14,7 +14,7 @@ const Navbar = () => {
 		navigate('/login')
 	}
 	return (
-		<div className="container d-flex flex-column flex-md-row align-items-center p-3 mb-4 border-bottom">
+		<div className="d-flex flex-column flex-md-row align-items-center pt-3 pb-3 mb-4 border-bottom">
 			<Link
 				to={"/"}
 				className="d-flex align-items-center link-body-emphasis text-decoration-none"
@@ -41,6 +41,12 @@ const Navbar = () => {
 			<nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
 				{loggedIn ? (
 					<div className="d-flex align-items-center" height={'100px'}>
+						<Link
+							to={"/create-article"}
+							className="me-5 py-2 link-body-emphasis text-decoration-none"
+						>
+							Create
+						</Link>
 						<p className="mt-3 me-4">
 							{user.username}
 						</p>

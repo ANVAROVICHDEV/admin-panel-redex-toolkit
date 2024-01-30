@@ -1,14 +1,41 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../ui";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
+import ArticleService from "../../service/article";
+import { articleStart, articleSuccess } from "../../slice/article";
 const Main = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const { article, isLoading } = useSelector((state) => state.article);
+	const { loggedIn, user } = useSelector((state) => state.auth);
+
+	const getArticles = async () => {
+		dispatch(articleStart());
+		try {
+			const response = await ArticleService.getArticle();
+			dispatch(articleSuccess(response.articles));
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const deleteArticle = async (slug) => {
+		try {
+			const response = await ArticleService.deleteArticle(slug);
+			getArticles();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getArticles();
+	}, []);
 
 	return (
 		<div className="album py-5 bg-body-tertiary">
-			<div className="container">
+			<div>
 				{isLoading && <Loader />}
 
 				<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -45,18 +72,24 @@ const Main = () => {
 											>
 												View
 											</button>
-											<button
-												type="button"
-												className="btn btn-sm btn-outline-secondary"
-											>
-												Edit
-											</button>
-											<button
-												type="button"
-												className="btn btn-sm btn-outline-danger"
-											>
-												Delete
-											</button>
+											{loggedIn && user.username === item.author.username && (
+												<>
+													<button
+													onClick={() => navigate(`/edit-article/${item.slug}`)}
+														type="button"
+														className="btn btn-sm btn-outline-secondary"
+													>
+														Edit
+													</button>
+													<button
+														onClick={() => deleteArticle(item.slug)}
+														type="button"
+														className="btn btn-sm btn-outline-danger"
+													>
+														Delete
+													</button>
+												</>
+											)}
 										</div>
 										<small className="text-body-secondary text-capitalize">
 											{item.author.username}

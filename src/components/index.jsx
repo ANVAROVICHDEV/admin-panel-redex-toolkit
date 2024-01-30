@@ -6,3 +6,6 @@ export {default as Main} from '../components/main/main'
 export {default as PageNotFound} from '../components/pageNotFound/pageNotFound'
 export {default as ValidationError} from "../components/validation/validation-error"
 export {default as ArticleDetail} from "../components/article-detail/article-detail"
+export {default as CreateArticle} from "../components/create-article/create-article"
+export {default as Form} from "../components/form/form"
+export {default as Edit} from "../components/edit/edit"
